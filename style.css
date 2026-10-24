@@ -1,0 +1,441 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0a0a0a;
+    background-image:
+            radial-gradient(ellipse at top, #1a120b 0%, #0a0a0a 60%),
+            radial-gradient(ellipse at bottom, #1c1008 0%, transparent 70%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    color: #e8d5b5;
+}
+
+.container {
+    background: linear-gradient(160deg, #14100c 0%, #0f0c09 100%);
+    border: 1px solid #3a2a1a;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 640px;
+    overflow: hidden;
+    position: relative;
+
+    /* Base soft glow */
+    box-shadow:
+            0 0 15px rgba(196, 92, 38, 0.15),
+            0 0 30px rgba(180, 70, 20, 0.08),
+            0 20px 50px rgba(0, 0, 0, 0.6);
+
+    /* Ember flicker animation */
+    animation: emberPulse 4s ease-in-out infinite;
+}
+
+/* Stronger ember glow that flickers */
+.container::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 4px;
+    padding: 1px;
+    background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(196, 92, 38, 0.4),
+            rgba(224, 122, 61, 0.7),
+            rgba(196, 92, 38, 0.4),
+            transparent
+    );
+    -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: emberFlicker 3.2s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+.container {
+    background: linear-gradient(160deg, #14100c 0%, #0f0c09 100%);
+    border: 1px solid #3a2a1a;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 640px;
+    position: relative;
+
+    /* Soft outer glow */
+    box-shadow:
+            0 0 12px rgba(196, 92, 38, 0.2),
+            0 0 30px rgba(180, 70, 20, 0.1),
+            0 20px 50px rgba(0, 0, 0, 0.6);
+
+    animation: emberPulse 3.5s ease-in-out infinite;
+}
+
+/* Glowing border */
+.container::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 5px;
+    background: linear-gradient(
+            90deg,
+            #c45c26,
+            #e07a3d,
+            #ff9a4a,
+            #e07a3d,
+            #c45c26
+    );
+    z-index: -1;
+    opacity: 0.6;
+    filter: blur(4px);
+    animation: emberFlicker 2.8s ease-in-out infinite;
+}
+
+/* Top ember line */
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #e07a3d, #ff9a4a, #e07a3d, transparent);
+    z-index: 2;
+    animation: topEmber 2.5s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes emberPulse {
+    0%, 100% {
+        box-shadow:
+                0 0 10px rgba(196, 92, 38, 0.15),
+                0 0 25px rgba(180, 70, 20, 0.08),
+                0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+    40% {
+        box-shadow:
+                0 0 22px rgba(224, 122, 61, 0.4),
+                0 0 45px rgba(196, 92, 38, 0.2),
+                0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+    70% {
+        box-shadow:
+                0 0 14px rgba(196, 92, 38, 0.25),
+                0 0 30px rgba(180, 70, 20, 0.12),
+                0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+}
+
+@keyframes emberFlicker {
+    0%, 100% {
+        opacity: 0.35;
+        filter: blur(4px) brightness(0.9);
+    }
+    20% {
+        opacity: 0.75;
+        filter: blur(5px) brightness(1.3);
+    }
+    45% {
+        opacity: 0.4;
+        filter: blur(3px) brightness(1);
+    }
+    70% {
+        opacity: 0.85;
+        filter: blur(6px) brightness(1.4);
+    }
+    90% {
+        opacity: 0.5;
+        filter: blur(4px) brightness(1.1);
+    }
+}
+
+@keyframes topEmber {
+    0%, 100% { opacity: 0.5; }
+    30% { opacity: 1; }
+    60% { opacity: 0.6; }
+    85% { opacity: 0.9; }
+}
+
+/* ========== SCREENS ========== */
+.screen {
+    display: none;
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.screen.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========== START SCREEN ========== */
+#start-screen h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 2.4rem;
+    color: #e8d5b5;
+    letter-spacing: 3px;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 0 20px rgba(196, 92, 38, 0.3);
+}
+
+#start-screen .subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.05rem;
+    color: #c45c26;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+}
+
+#start-screen p {
+    color: #a89070;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========== QUIZ SCREEN ========== */
+.quiz-header {
+    margin-bottom: 1.8rem;
+}
+
+#question-text {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    color: #e8d5b5;
+    font-size: 1.45rem;
+    line-height: 1.45;
+    margin-bottom: 1.2rem;
+}
+
+.quiz-info {
+    display: flex;
+    justify-content: space-between;
+    color: #8a7355;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+.quiz-info span {
+    color: #c45c26;
+    font-weight: 600;
+}
+
+.answers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.answer-btn {
+    background: #1a140f;
+    color: #d4c0a0;
+    border: 1px solid #3a2a1a;
+    border-radius: 3px;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.answer-btn:hover:not(:disabled) {
+    background: #241c14;
+    border-color: #c45c26;
+    color: #f0e0c0;
+}
+
+.answer-btn:disabled {
+    cursor: default;
+}
+
+.answer-btn.correct {
+    background: #1a2a1a;
+    border-color: #3d8b4f;
+    color: #7dcea0;
+}
+
+.answer-btn.incorrect {
+    background: #2a1515;
+    border-color: #8b3d3d;
+    color: #e07a7a;
+}
+
+/* Progress */
+.progress-bar {
+    height: 4px;
+    background: #1f1812;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, #a3451f, #e07a3d);
+    width: 0%;
+    transition: width 0.4s ease;
+    box-shadow: 0 0 10px rgba(224, 122, 61, 0.4);
+}
+
+/* ========== RESULT SCREEN ========== */
+#result-screen h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    color: #e8d5b5;
+    letter-spacing: 2px;
+    margin-bottom: 1.8rem;
+}
+
+.result-info {
+    background: #15110d;
+    border: 1px solid #3a2a1a;
+    border-radius: 3px;
+    padding: 1.8rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.result-info p {
+    font-size: 1.25rem;
+    color: #c8b090;
+    margin-bottom: 1rem;
+}
+
+.result-info span {
+    color: #e07a3d;
+    font-weight: 600;
+}
+
+#result-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #c45c26;
+    letter-spacing: 2px;
+    margin: 0.8rem 0 0.4rem;
+    text-shadow: 0 0 15px rgba(196, 92, 38, 0.35);
+}
+
+#result-message {
+    font-size: 1.15rem;
+    color: #a89070;
+    font-style: italic;
+}
+
+/* YOU DIED special styling */
+#result-screen.you-died {
+    background: radial-gradient(ellipse at center, #1a0808 0%, #0a0505 70%);
+}
+
+#result-screen.you-died h1 {
+    display: none;
+}
+
+#result-screen.you-died .result-info {
+    background: transparent;
+    border: none;
+    padding: 3rem 1rem;
+}
+
+#result-screen.you-died #result-title {
+    font-family: 'Cinzel', serif;
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: #c41e1e;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    text-shadow:
+            0 0 20px rgba(196, 30, 30, 0.6),
+            0 0 40px rgba(140, 20, 20, 0.4);
+    margin: 1.5rem 0 1rem;
+    line-height: 1.1;
+}
+
+#result-screen.you-died #result-message {
+    font-size: 1.25rem;
+    color: #a05050;
+    font-style: normal;
+    letter-spacing: 1px;
+}
+
+#result-screen.you-died .result-info p {
+    color: #8a6060;
+}
+
+/* ========== BUTTONS ========== */
+button {
+    background: linear-gradient(180deg, #c45c26 0%, #a3451f 100%);
+    color: #1a1008;
+    border: none;
+    border-radius: 3px;
+    padding: 14px 36px;
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-transform: uppercase;
+}
+
+button:hover {
+    background: linear-gradient(180deg, #d46a30 0%, #b35022 100%);
+    box-shadow: 0 0 20px rgba(196, 92, 38, 0.4);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 520px) {
+    .screen {
+        padding: 1.8rem 1.3rem;
+    }
+
+    #start-screen h1 {
+        font-size: 1.9rem;
+        letter-spacing: 2px;
+    }
+
+    #question-text {
+        font-size: 1.25rem;
+    }
+
+    .answer-btn {
+        padding: 0.9rem 1rem;
+        font-size: 1.05rem;
+    }
+
+    #result-title {
+        font-size: 1.6rem;
+    }
+
+    #result-screen.you-died #result-title {
+        font-size: 2.8rem;
+        letter-spacing: 4px;
+    }
+}
