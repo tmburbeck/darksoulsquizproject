@@ -349,7 +349,7 @@ restartButton.addEventListener("click", restartQuiz);
 
 // Functions
 function startQuiz() {
-    // Try to play music (browsers often block autoplay until interaction)
+    // Try to play music when added
     if (bgMusic) {
         bgMusic.volume = 0.4;
         bgMusic.play().catch(() => {
